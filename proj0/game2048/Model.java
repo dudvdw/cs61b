@@ -94,6 +94,43 @@ public class Model extends Observable {
         setChanged();
     }
 
+    /** Merge TILE below (c, r) to it.
+     * Return true if any tile has moved. */
+    public boolean mergeTile(int c, int r, boolean isMove) {
+        Tile t = board.tile(c, r);
+        if (t == null){
+            boolean isRecurse = false;
+            for (int i = 1; r - i >= 0 ; i++) {
+                Tile below_t = board.tile(c, r-i);
+                if (below_t != null){
+                    // invoke mergeTile again when find a below_t is not null
+                    isRecurse = true;
+                    board.move(c, r, below_t);
+                    isMove = true;
+                    break;
+                }
+            }
+            if (isRecurse) {
+                mergeTile(c, r, isMove);
+            }
+        } else {
+            for (int i = 1; r - i >= 0; i++) {
+                Tile below_t = board.tile(c, r-i);
+                if (below_t != null) {
+                    if (t.value() == below_t.value()) {
+                        board.move(c, r, below_t);
+                        isMove = true;
+                        // current t's value has not changed yet.
+                        score += 2 * t.value();
+                    }
+                    // when find a non-null below_t, stop the loop.
+                    break;
+                }
+            }
+        }
+        return isMove;
+    }
+
     /** Tilt the board toward SIDE. Return true iff this changes the board.
      *
      * 1. If two Tile objects are adjacent in the direction of motion and have
@@ -113,6 +150,13 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
+        for (int c = 0; c < board.size(); c++) {
+            for (int r = board.size() - 1; r > 0; r--) {
+                changed = mergeTile(c, r, changed);
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -140,7 +184,7 @@ public class Model extends Observable {
         // TODO: Fill in this function.
         for (int i = 0; i < b.size(); i++) {
             for (int j = 0; j < b.size(); j++) {
-                if (b.tile(i, j) == null || b.tile(i, j).value() == 0) {
+                if (b.tile(i, j) == null) {
                     return true;
                 }
             }
@@ -178,10 +222,12 @@ public class Model extends Observable {
                 if (b.tile(i, j) == null) {
                     return true;
                 } else {
-                        if (j < b.size()-1 && b.tile(i, j).value() == b.tile(i, j+1).value()) {
+                        if (j < b.size()-1 && b.tile(i, j+1) != null
+                                && b.tile(i, j).value() == b.tile(i, j+1).value()) {
                             return true;
                         }
-                        if (i < b.size()-1 && b.tile(i, j).value() == b.tile(i+1, j).value()) {
+                        if (i < b.size()-1 && b.tile(i+1, j) != null
+                                && b.tile(i, j).value() == b.tile(i+1, j).value()) {
                             return true;
                     }
                 }
