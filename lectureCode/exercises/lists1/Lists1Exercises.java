@@ -4,7 +4,14 @@ public class Lists1Exercises {
       * to change. */
     public static IntList incrList(IntList L, int x) {
         /* Your code here. */
-        return L;        
+        IntList addL = new IntList(L.first + x, null);
+        IntList pre = addL;
+        while (L.rest != null) {
+            L = L.rest;
+            addL.rest = new IntList(L.first + x, null);
+            addL = addL.rest;
+        }
+        return pre;
     }
 
     /** Returns an IntList identical to L, but with
@@ -12,7 +19,20 @@ public class Lists1Exercises {
       * the 'new' keyword. */
     public static IntList dincrList(IntList L, int x) {
         /* Your code here. */
+        IntList p = L;
+        while (p != null) {
+            p.first += x;
+            p = p.rest;
+        }
         return L;
+    }
+
+    public static void printL (IntList L) {
+        while (L != null) {
+            System.out.print(L.first + " ");
+            L = L.rest;
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -26,8 +46,9 @@ public class Lists1Exercises {
         // Test your answers by uncommenting. Or copy and paste the
         // code for incrList and dincrList into IntList.java and
         // run it in the visualizer.
-        // System.out.println(L.get(1));
-        // System.out.println(incrList(L, 3));
-        // System.out.println(dincrList(L, 3));        
+         System.out.println(L.get(1));
+         printL(L);
+         printL(incrList(L, 3));
+         printL(dincrList(L, 4));
     }
 }
