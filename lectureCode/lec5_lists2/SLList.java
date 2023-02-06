@@ -1,5 +1,7 @@
 package lists2;
 
+import java.util.Arrays;
+
 /** An SLList is a list of integers, which hides the terrible truth
    * of the nakedness within. */
 public class SLList {	
@@ -41,9 +43,16 @@ public class SLList {
  		size = size + 1;
  	}
 
+	/** delete the first of the list. */
+	public void deleteFirst() {
+		 if (size < 1) return;
+		 sentinel.next = sentinel.next.next;
+		 size = size - 1;
+	}
+
  	/** Returns the first item in the list. */
  	public int getFirst() {
- 		return sentinel.next.item;
+		 return sentinel.next.item;
  	}
 
  	/** Adds x to the end of the list. */
@@ -68,9 +77,13 @@ public class SLList {
 	public static void main(String[] args) {
  		/* Creates a list of one integer, namely 10 */
  		SLList L = new SLList();
-		 L.addLast(10);
-		 L.addFirst(1);
+		L.addLast(10);
+		L.addFirst(1);
  		L.addLast(20);
  		System.out.println(L.size());
+		System.out.println(L.getFirst());
+		L.deleteFirst();
+		System.out.println(L.size());
+		System.out.println(L.getFirst());
  	}
 }
