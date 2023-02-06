@@ -68,6 +68,8 @@ public class SLList {
 	public static void main(String[] args) {
  		/* Creates a list of one integer, namely 10 */
  		SLList L = new SLList();
+		 L.addLast(10);
+		 L.addFirst(1);
  		L.addLast(20);
  		System.out.println(L.size());
  	}
