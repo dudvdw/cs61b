@@ -22,7 +22,7 @@ public class LinkedListDeque<T> {
 
     public LinkedListDeque(T x) {
         sentinel = new DequeNode(null, null, null);
-        sentinel.next = new DequeNode(x, this.sentinel, null);
+        sentinel.next = new DequeNode(x, sentinel, sentinel);
         size = 1;
     }
 
