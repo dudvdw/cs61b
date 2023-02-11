@@ -137,7 +137,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (index < items.length && items[index] != null) {
+        if (index < items.length) {
             return items[index];
         }
         return null;
