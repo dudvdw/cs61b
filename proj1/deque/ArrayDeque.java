@@ -3,8 +3,6 @@ package deque;
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
-    private int start;
-    private int last;
     private int nextFirst;
     private int nextLast;
 
@@ -15,9 +13,22 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
+    public int getStart() {
+        if (nextFirst == items.length - 1) {
+            return 0;
+        }
+        return nextFirst + 1;
+    }
+
+    public int getLast() {
+        if (nextLast == 0){
+            return items.length - 1;
+        }
+        return nextLast - 1;
+    }
+
     public void addFirst(T item) {
         items[nextFirst] = item;
-        start = nextFirst;
         if (nextFirst == 0) {
             nextFirst = items.length - 1;
         } else {
@@ -25,14 +36,13 @@ public class ArrayDeque<T> {
         }
         size++;
 
-        if (nextFirst == nextLast) {
+        if (getStart() == nextLast) {
             resize(items.length * 2);
         }
     }
 
     public void addLast(T item) {
         items[nextLast] = item;
-        last = nextLast;
         if (nextLast == items.length - 1) {
             nextLast = 0;
         } else {
@@ -40,7 +50,7 @@ public class ArrayDeque<T> {
         }
         size++;
 
-        if (nextFirst == nextLast) {
+        if (getStart() == nextLast) {
             resize(items.length * 2);
         }
     }
@@ -55,17 +65,16 @@ public class ArrayDeque<T> {
 
     public void resize(int n) {
         T[] a = (T[]) new Object[n];
+        int start = getStart();
 
-        for (int i = start; i < size; i++) {
+        for (int i = start; i < start+size && i < items.length; i++) {
             a[i-start] = items[i];
         }
-        if (start != 0) {
+        if (start >= nextLast) {
             for (int i = 0; i < start; i++) {
                 a[size-start] = items[i];
             }
         }
-        start = 0;
-        last = size - 1;
         items = a;
         nextFirst = items.length - 1;
         nextLast = size;
@@ -73,6 +82,7 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         int n = 0;
+        int start = getStart();
         for (int i = start; i < start+size && i < items.length; i++) {
             n++;
             System.out.print(get(i) + " ");
@@ -89,21 +99,19 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
+        int start = getStart();
         T result = items[start];
         items[start] = null;
         if (start == 0) {
-            start++;
             nextFirst = 0;
         } else if (start == items.length - 1){
-            start = 0;
             nextFirst = items.length - 1;
         } else {
-            start++;
             nextFirst++;
         }
         size--;
-
-        if (size >= 16 && size / items.length <= 0.25) {
+        int usage = size * 100 / items.length;
+        if (items.length >= 16 && usage <= 25) {
             resize(items.length / 2);
         }
         return result;
@@ -113,16 +121,14 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
+        int last = getLast();
         T result = items[last];
         items[last] = null;
         if (last == 0) {
-            last = items.length - 1;
             nextLast = 0;
         } else if (last == items.length - 1) {
-            last = 0;
             nextLast = items.length - 1;
         } else {
-            last--;
             nextLast--;
         }
 
