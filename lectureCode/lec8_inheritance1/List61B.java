@@ -1,6 +1,6 @@
 package lec8_inheritance1;
 
-public interface List61B<Item> {
+public interface  List61B<Item> {
         public void insert(Item x, int position);
         public void addFirst(Item x);
         public void addLast(Item x);

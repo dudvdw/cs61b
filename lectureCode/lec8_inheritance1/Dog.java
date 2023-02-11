@@ -1,3 +1,5 @@
+package lec8_inheritance1;
+
 /**
  * Created by hug.
  */
