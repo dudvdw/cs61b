@@ -137,10 +137,11 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (index < items.length) {
-            return items[index];
-        }
-        return null;
+//        if (index < items.length) {
+//            return items[index+1+nextFirst];
+//        }
+//        return null;
+        return items[(nextFirst + 1 + index) % items.length];
     }
 
 

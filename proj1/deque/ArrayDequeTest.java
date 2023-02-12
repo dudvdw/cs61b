@@ -1,5 +1,7 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,9 +32,13 @@ public class ArrayDequeTest {
         lld1.addLast("back");
         assertEquals(3, lld1.size());
 
+
+
+
         System.out.println("Printing out deque: ");
         lld1.printDeque();
     }
+
 
     @Test
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
@@ -49,6 +55,10 @@ public class ArrayDequeTest {
         lld1.removeFirst();
         // should be empty
         assertTrue("lld1 should be empty after removal", lld1.isEmpty());
+
+        lld1.addFirst(0);
+        int res = lld1.get(0);
+        assertEquals(0, res);
     }
 
     @Test
@@ -118,5 +128,100 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
 
+    }
+
+    private static void printTimingTable(ArrayDeque<Integer> Ns, ArrayDeque<Double> times, ArrayDeque<Integer> opCounts) {
+        System.out.printf("%12s %12s %12s %12s\n", "N", "time (s)", "# ops", "microsec/op");
+        System.out.printf("------------------------------------------------------------\n");
+        for (int i = 0; i < Ns.size(); i += 1) {
+            int N = Ns.get(i);
+            double time = times.get(i);
+            int opCount = opCounts.get(i);
+            double timePerOp = time / opCount * 1e6;
+            System.out.printf("%12d %12.2f %12d %12.2f\n", N, time, opCount, timePerOp);
+        }
+    }
+
+    public static void main(String[] args) {
+        timeAListConstruction();
+    }
+
+    public static void timeAListConstruction() {
+        // TODO: YOUR CODE HERE
+        ArrayDeque<Integer> testList = new ArrayDeque<>();
+        ArrayDeque<Double> timeList = new ArrayDeque<>();
+        int n = 1000;
+
+        for (int i = 0; i < 8; i++) {
+            ArrayDeque<Integer> a = new ArrayDeque<>();
+
+            Stopwatch sw = new Stopwatch();
+            for (int j = 0; j < n; j++) {
+                a.addLast(i);
+            }
+            double timeInSeconds = sw.elapsedTime();
+
+            testList.addLast(n);
+            timeList.addLast(timeInSeconds);
+            n *= 2;
+        }
+
+        printTimingTable(testList, timeList, testList);
+    }
+
+
+    @Test
+    public void testEqual() {
+        LinkedListDeque<Integer> aList = new LinkedListDeque<>();
+        ArrayDeque<Integer> bList = new ArrayDeque<>();
+
+        for (int i = 4; i < 7; i++) {
+            aList.addLast(i);
+            bList.addLast(i);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            assertEquals(aList.size(), bList.size());
+
+            int a = aList.removeLast();
+            int b = bList.removeLast();
+
+            assertEquals(a, b);
+        }
+    }
+
+    @Test
+    public void randomizedTest() {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>();
+        ArrayDeque<Integer> B = new ArrayDeque<>();
+
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+            if (operationNumber == 0 || L.size() == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                L.addLast(randVal);
+                B.addLast(randVal);
+                System.out.println("addLast(" + randVal + ")");
+            } else if (operationNumber == 1) {
+                // size
+                int size = L.size();
+                assertEquals(L.size(), B.size());
+                System.out.println("size: " + size);
+            } else if (operationNumber == 2){
+                int randIndex = StdRandom.uniform(0, 100) % L.size();
+                if (randIndex == L.size()) {
+                    randIndex = L.size() - 1;
+                }
+                assertEquals(L.get(randIndex), B.get(randIndex));
+                System.out.println("get(" + randIndex + ")");
+            } else {
+                int l = L.removeLast();
+                int b = B.removeLast();
+                assertEquals(l, b);
+                System.out.println("removeLast(" + l + ")");
+            }
+        }
     }
 }

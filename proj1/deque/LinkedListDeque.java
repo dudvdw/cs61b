@@ -20,11 +20,11 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(T x) {
-        sentinel = new DequeNode(null, null, null);
-        sentinel.next = new DequeNode(x, sentinel, sentinel);
-        size = 1;
-    }
+//    public LinkedListDeque(T x) {
+//        sentinel = new DequeNode(null, null, null);
+//        sentinel.next = new DequeNode(x, sentinel, sentinel);
+//        size = 1;
+//    }
 
     public void addFirst(T item) {
         DequeNode oldFirst = sentinel.next;
@@ -79,6 +79,10 @@ public class LinkedListDeque<T> {
         if (first == null) {
             return null;
         }
+        if (size == 1) {
+            sentinel.prev = null;
+            sentinel.next = null;
+        }
         if (size > 1) {
             DequeNode second = first.next;
             sentinel.next = second;
@@ -99,6 +103,10 @@ public class LinkedListDeque<T> {
         DequeNode oldLast = sentinel.prev;
         if (oldLast == null) {
             return null;
+        }
+        if (size == 1) {
+            sentinel.prev = null;
+            sentinel.next = null;
         }
         if (size > 1) {
             DequeNode last = oldLast.prev;
