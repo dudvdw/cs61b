@@ -1,6 +1,8 @@
 package lec11_inheritance4;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ArraySet<T> implements Iterable<T> {
     private T[] items;
@@ -63,19 +65,19 @@ public class ArraySet<T> implements Iterable<T> {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder returnSB = new StringBuilder("{");
-        for (int i = 0; i < size - 1; i += 1) {
-            returnSB.append(items[i].toString());
-            returnSB.append(", ");
-        }
-        returnSB.append(items[size - 1]);
-        returnSB.append("}");
-        return returnSB.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder returnSB = new StringBuilder("{");
+//        for (int i = 0; i < size - 1; i += 1) {
+//            returnSB.append(items[i].toString());
+//            returnSB.append(", ");
+//        }
+//        returnSB.append(items[size - 1]);
+//        returnSB.append("}");
+//        return returnSB.toString();
+//    }
 
-    /* EXTRA VIDEO CODE
+//     EXTRA VIDEO CODE
     @Override
     public String toString() {
         List<String> listOfItems = new ArrayList<>();
@@ -83,16 +85,16 @@ public class ArraySet<T> implements Iterable<T> {
             listOfItems.add(x.toString());
         }
         return "{" + String.join(", ", listOfItems) + "}";
-    } */
+    }
 
-    /* EXTRA VIDEO CODE
+//     EXTRA VIDEO CODE
     public static <Glerp> ArraySet<Glerp> of(Glerp... stuff) {
         ArraySet<Glerp> returnSet = new ArraySet<Glerp>();
         for (Glerp x : stuff) {
             returnSet.add(x);
         }
         return returnSet;
-    } */
+    }
 
 
     @Override
@@ -144,9 +146,9 @@ public class ArraySet<T> implements Iterable<T> {
         System.out.println(aset.equals(aset));
 
         //EXTRA VIDEO CODE
-        //ArraySet<String> asetOfStrings = ArraySet.of("hi", "I'm", "here");
-        //System.out.println(asetOfStrings);
-    }
+        ArraySet<String> asetOfStrings = ArraySet.of("hi", "I'm", "here");
+        System.out.println(asetOfStrings);
+     }
 
     /* Also to do:
     1. Make ArraySet implement the Iterable<T> interface.
