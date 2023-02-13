@@ -24,7 +24,7 @@ public class Dog {
 			return d1;
 		}
 		return d2;
-	}	
+	}
 
 
 } 
