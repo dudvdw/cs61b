@@ -73,8 +73,9 @@ public class ArrayDeque<T> implements Deque<T> {
             a[i - start] = items[i];
         }
         if (start >= nextLast) {
-            for (int i = 0; i < start; i++) {
-                a[size - start] = items[i];
+            int cpIndex = items.length - start;
+            for (int i = 0; i < start && (cpIndex + i) < n; i++) {
+                a[cpIndex + i] = items[i];
             }
         }
         items = a;

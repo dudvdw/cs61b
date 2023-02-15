@@ -197,7 +197,7 @@ public class ArrayDequeTest {
 
         int N = 5000;
         for (int i = 0; i < N; i += 1) {
-            int operationNumber = StdRandom.uniform(0, 4);
+            int operationNumber = StdRandom.uniform(0, 6);
             if (operationNumber == 0 || L.size() == 0) {
                 // addLast
                 int randVal = StdRandom.uniform(0, 100);
@@ -205,17 +205,28 @@ public class ArrayDequeTest {
                 B.addLast(randVal);
                 System.out.println("addLast(" + randVal + ")");
             } else if (operationNumber == 1) {
+                // addFirst
+                int randVal = StdRandom.uniform(0, 100);
+                L.addFirst(randVal);
+                B.addFirst(randVal);
+                System.out.println("addFirst(" + randVal + ")");
+            } else if (operationNumber == 2) {
                 // size
                 int size = L.size();
                 assertEquals(L.size(), B.size());
                 System.out.println("size: " + size);
-            } else if (operationNumber == 2){
+            } else if (operationNumber == 3){
                 int randIndex = StdRandom.uniform(0, 100) % L.size();
                 if (randIndex == L.size()) {
                     randIndex = L.size() - 1;
                 }
                 assertEquals(L.get(randIndex), B.get(randIndex));
                 System.out.println("get(" + randIndex + ")");
+            } else if (operationNumber == 4) {
+                int l = L.removeFirst();
+                int b = B.removeFirst();
+                assertEquals(l, b);
+                System.out.println("removeFirst(" + l + ")");
             } else {
                 int l = L.removeLast();
                 int b = B.removeLast();
