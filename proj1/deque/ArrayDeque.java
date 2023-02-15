@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -55,9 +57,9 @@ public class ArrayDeque<T> {
         }
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
+//    public boolean isEmpty() {
+//        return size == 0;
+//    }
 
     public int size() {
         return size;
@@ -131,8 +133,11 @@ public class ArrayDeque<T> {
         } else {
             nextLast--;
         }
-
         size--;
+        int usage = size * 100 / items.length;
+        if (items.length >= 16 && usage <= 25) {
+            resize(items.length / 2);
+        }
         return result;
     }
 
@@ -145,14 +150,47 @@ public class ArrayDeque<T> {
     }
 
 
-//    public Iterator<T> iterator() {
-//        Iterator<T> it =
-//        return it;
-//    }
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
 
-//    public boolean equals(Object o) {
-//        if (o instanceof T) {
-//
-//        }
-//    }
+    public class ArrayDequeIterator implements Iterator<T> {
+        private int index;
+
+        ArrayDequeIterator() {
+            index = 0;
+        }
+
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        public T next() {
+            T item = get(index);
+            index++;
+            return item;
+        }
+    }
+
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if(!(o instanceof ArrayDeque)) {
+            return false;
+        }
+        ArrayDeque<?> arr = (ArrayDeque<?>) o;
+        if (arr.size() != size) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (arr.get(i) != get(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
