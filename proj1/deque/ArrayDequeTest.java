@@ -198,25 +198,25 @@ public class ArrayDequeTest {
         int N = 5000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 6);
-            if (operationNumber == 0 || L.size() == 0) {
+            if (operationNumber == 1) {
                 // addLast
-                int randVal = StdRandom.uniform(0, 100);
+                int randVal = StdRandom.uniform(0, 5000);
                 L.addLast(randVal);
                 B.addLast(randVal);
-                System.out.println("addLast(" + randVal + ")");
-            } else if (operationNumber == 1) {
+//                System.out.println("addLast(" + randVal + ")");
+            } else if (operationNumber == 0 || L.size() == 0) {
                 // addFirst
-                int randVal = StdRandom.uniform(0, 100);
+                int randVal = StdRandom.uniform(0, 5000);
                 L.addFirst(randVal);
                 B.addFirst(randVal);
-                System.out.println("addFirst(" + randVal + ")");
+//                System.out.println("addFirst(" + randVal + ")");
             } else if (operationNumber == 2) {
                 // size
                 int size = L.size();
                 assertEquals(L.size(), B.size());
-                System.out.println("size: " + size);
+//                System.out.println("size: " + size);
             } else if (operationNumber == 3){
-                int randIndex = StdRandom.uniform(0, 100) % L.size();
+                int randIndex = StdRandom.uniform(0, 5000) % L.size();
                 if (randIndex == L.size()) {
                     randIndex = L.size() - 1;
                 }
@@ -226,12 +226,12 @@ public class ArrayDequeTest {
                 int l = L.removeFirst();
                 int b = B.removeFirst();
                 assertEquals(l, b);
-                System.out.println("removeFirst(" + l + ")");
+//                System.out.println("removeFirst(" + l + ")");
             } else {
                 int l = L.removeLast();
                 int b = B.removeLast();
                 assertEquals(l, b);
-                System.out.println("removeLast(" + l + ")");
+//                System.out.println("removeLast(" + l + ")");
             }
         }
     }
