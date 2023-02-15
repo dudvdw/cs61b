@@ -173,6 +173,8 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
+
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;

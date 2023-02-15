@@ -210,7 +210,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         public boolean hasNext() {
-            return p == sentinel;
+            return p != sentinel;
         }
 
         public T next() {
