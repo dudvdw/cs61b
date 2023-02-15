@@ -2,19 +2,19 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>{
-    public class DequeNode {
-        public T item;
-        public DequeNode prev;
-        public DequeNode next;
-        public DequeNode(T item, DequeNode prev, DequeNode next) {
+public class LinkedListDeque<T> implements Deque<T> {
+    private class DequeNode {
+        private T item;
+        private DequeNode prev;
+        private DequeNode next;
+        private DequeNode(T item, DequeNode prev, DequeNode next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
     }
 
-    private DequeNode sentinel;
+    private final DequeNode sentinel;
     private int size;
 
     public LinkedListDeque() {
@@ -24,11 +24,11 @@ public class LinkedListDeque<T> implements Deque<T>{
         size = 0;
     }
 
-    public LinkedListDeque(T x) {
-        sentinel = new DequeNode(null, null, null);
-        sentinel.next = new DequeNode(x, sentinel, sentinel);
-        size = 1;
-    }
+//    public LinkedListDeque(T x) {
+//        sentinel = new DequeNode(null, null, null);
+//        sentinel.next = new DequeNode(x, sentinel, sentinel);
+//        size = 1;
+//    }
 
     /*public void addFirst(T item) {
         DequeNode oldFirst = sentinel.next;
@@ -154,7 +154,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     }*/
 
     public T removeLast() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         DequeNode oldLast = sentinel.prev;
@@ -182,7 +182,7 @@ public class LinkedListDeque<T> implements Deque<T>{
         return null;
     }
 
-    public T getRecursiveHelper(int index, DequeNode x) {
+    private T getRecursiveHelper(int index, DequeNode x) {
         if (index == 0) {
             return x.item;
         } else if (index < size) {
