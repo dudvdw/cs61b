@@ -142,9 +142,9 @@ public class ArrayDequeTest {
         }
     }
 
-    public static void main(String[] args) {
-        timeAListConstruction();
-    }
+//    public static void main(String[] args) {
+//        timeAListConstruction();
+//    }
 
     public static void timeAListConstruction() {
         // TODO: YOUR CODE HERE

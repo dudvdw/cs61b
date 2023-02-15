@@ -102,6 +102,22 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    public void getRecursiveTest() {
+        LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
+        LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
+        LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
+
+        lld1.addFirst("string");
+        lld1.addLast("guitar");
+        lld2.addFirst(3.14159);
+        lld3.addFirst(true);
+
+        System.out.println("get: " + lld1.get(1));
+        System.out.println("getRecursive: " + lld1.getRecursive(1));
+
+    }
+
+    @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
 

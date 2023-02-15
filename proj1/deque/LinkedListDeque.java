@@ -187,7 +187,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return x.item;
         } else if (index < size) {
             x = x.next;
-            return getRecursiveHelper(index--, x);
+            return getRecursiveHelper(index-1, x);
         } else {
             return null;
         }
