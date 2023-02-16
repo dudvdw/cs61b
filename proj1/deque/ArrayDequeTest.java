@@ -221,7 +221,7 @@ public class ArrayDequeTest {
                     randIndex = L.size() - 1;
                 }
                 assertEquals(L.get(randIndex), B.get(randIndex));
-                System.out.println("get(" + randIndex + ")");
+//                System.out.println("get(" + randIndex + ")");
             } else if (operationNumber == 4) {
                 int l = L.removeFirst();
                 int b = B.removeFirst();
