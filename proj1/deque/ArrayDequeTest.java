@@ -2,6 +2,7 @@ package deque;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,9 +18,14 @@ public class ArrayDequeTest {
     public void addIsEmptySizeTest() {
 
         ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<String> lld2 = new ArrayDeque<String>();
 
         assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
+        lld2.addLast("front");
         lld1.addFirst("front");
+        System.out.println("lld1 equals lld2 " + lld1.equals(lld2));
+        lld2.addLast("front2");
+        System.out.println("lld1 equals lld2 >>" + lld1.equals(lld2));
 
         // The && operator is the same as "and" in Python.
         // It's a binary operator that returns true if both arguments true, and false otherwise.
@@ -195,31 +201,31 @@ public class ArrayDequeTest {
         LinkedListDeque<Integer> L = new LinkedListDeque<>();
         ArrayDeque<Integer> B = new ArrayDeque<>();
 
-        int N = 5000;
+        int N = 1000000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 6);
             if (operationNumber == 1) {
                 // addLast
-                int randVal = StdRandom.uniform(0, 5000);
+                int randVal = StdRandom.uniform(0, N);
                 L.addLast(randVal);
                 B.addLast(randVal);
 //                System.out.println("addLast(" + randVal + ")");
-            } else if (operationNumber == 0 || L.size() == 0) {
+            } else if (operationNumber == 0) {
                 // addFirst
-                int randVal = StdRandom.uniform(0, 5000);
+                int randVal = StdRandom.uniform(0, N);
                 L.addFirst(randVal);
                 B.addFirst(randVal);
 //                System.out.println("addFirst(" + randVal + ")");
+            } else if (L.size() == 0) {
+                assertTrue(L.isEmpty());
+                assertTrue(B.isEmpty());
             } else if (operationNumber == 2) {
                 // size
                 int size = L.size();
                 assertEquals(L.size(), B.size());
 //                System.out.println("size: " + size);
             } else if (operationNumber == 3){
-                int randIndex = StdRandom.uniform(0, 5000) % L.size();
-                if (randIndex == L.size()) {
-                    randIndex = L.size() - 1;
-                }
+                int randIndex = StdRandom.uniform(0, N) % L.size();
                 assertEquals(L.get(randIndex), B.get(randIndex));
 //                System.out.println("get(" + randIndex + ")");
             } else if (operationNumber == 4) {

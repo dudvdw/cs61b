@@ -39,7 +39,7 @@ public class HarpString {
     public void tic() {
         double first = buffer.removeFirst();
         double second = buffer.get(0);
-        double newPluck = - (first + second) / 2 * decay;
+        double newPluck = -(first + second) / 2 * decay;
         buffer.addLast(newPluck);
     }
 
