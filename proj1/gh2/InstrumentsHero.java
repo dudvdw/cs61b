@@ -30,6 +30,14 @@ public class InstrumentsHero {
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
                 System.out.println("key " + key);
+                // holddown the string
+                if (key == 'a') {
+                    guitar[0].heldDown();
+                }
+                // revert vibration decay
+                if (key == 's') {
+                    guitar[0].revert();
+                }
                 int index = KEY_BOARD.indexOf(key);
                 if (index > -1) {
                     guitar[index].pluck();

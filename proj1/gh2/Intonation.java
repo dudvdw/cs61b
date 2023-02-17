@@ -41,7 +41,6 @@ public class Intonation {
             double sample = 0.0;
             for (HarpString scale: guitar) {
                 sample += scale.sample();
-                System.out.println("sample: " + sample);
             }
 
             /* play the sample on standard audio */
