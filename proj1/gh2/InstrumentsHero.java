@@ -3,17 +3,25 @@ package gh2;
 import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
 
-public class GuitarHero {
+public class InstrumentsHero {
     public static final double CONCERT_BASIS = 440.0;
     public static final String KEY_BOARD = "`1q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
 
+
     public static void main(String[] args) {
         int range = KEY_BOARD.length();
-        GuitarString[] guitar = new GuitarString[range];
+        /*
+        * HarpString instrument = 50
+        * GuitarString instrument = 26
+        * HarpString instument = 0
+        */
+        int instrument = 0;
+
+        HarpString[] guitar = new HarpString[range];
         for (int i = 0; i < guitar.length; i++) {
-            double frequency = CONCERT_BASIS * Math.pow(2, ((double) i - 26) / 12);
-            guitar[i] = new GuitarString(frequency);
+            double frequency = CONCERT_BASIS * Math.pow(2, ((double) i - instrument) / 12);
+            guitar[i] = new HarpString(frequency);
         }
 
 
@@ -23,7 +31,6 @@ public class GuitarHero {
                 char key = StdDraw.nextKeyTyped();
                 System.out.println("key " + key);
                 int index = KEY_BOARD.indexOf(key);
-//                System.out.println("index " + index);
                 if (index > -1) {
                     guitar[index].pluck();
                 }
@@ -31,16 +38,15 @@ public class GuitarHero {
 
             /* compute the superposition of samples */
             double sample = 0.0;
-            for (GuitarString scale: guitar) {
+            for (HarpString scale: guitar) {
                 sample += scale.sample();
             }
-//            System.out.println("sample " + sample);
 
             /* play the sample on standard audio */
             StdAudio.play(sample);
 
             /* advance the simulation of each guitar string by one step */
-            for (GuitarString scale: guitar) {
+            for (HarpString scale: guitar) {
                 scale.tic();
             }
         }
