@@ -1,5 +1,7 @@
 package chaptercode.chapter10;
 
+import java.util.Queue;
+
 public class BST<Key extends Comparable<Key>, Value> {
     private Node root;
     private class Node {
@@ -77,7 +79,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         return rank(key, root);
     }
 
-    // return number of keys less than x.key in the subtree rooted at x
+    // return number of keys less than key in the subtree rooted at x
     private  int rank(Key key, Node x) {
         if (x == null) {
             return 0;
@@ -92,4 +94,60 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
+    public Key select(int k)
+    {
+        return select(root, k).key;
+    }
+    private Node select(Node x, int k)
+    {   // Return Node containing key of rank k.
+        if (x == null) return null;
+        int t = size(x.left);
+        if      (t > k) return select(x.left,  k);
+        else if (t < k) return select(x.right, k-t-1);
+        else            return x;
+    }
+
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    // delete the Node with minimized value under Node x, return the root
+    private Node deleteMin(Node x) {
+        if (x.left == null) {
+            return x.right;
+        }
+        x.left = deleteMin(x.left);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
+    public void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node x, Key key) {
+        if (x == null) {
+            return null;
+        }
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            x.left = delete(x.left, key);
+        } else if (cmp > 0) {
+            x.right = delete(x.right, key);
+        } else {
+            if (x.right == null) {
+                return x.left;
+            }
+            if (x.left == null) {
+                return x.right;
+            }
+            Node target = x;
+            x = min(target.right);
+            x.right = deleteMin(target.right);
+            x.left = target.left;
+        }
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
 }
+
