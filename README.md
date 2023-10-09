@@ -76,3 +76,43 @@ Confusing? That's okay, it is confusing. Just remember, in the context of inheri
 **Protected** Protected members are protected from the “outside” world, so classes within the same package and subclasses can access these members, but the rest of the world (e.g. classes external to the package or non-subclasses) cannot! TL;DR: subtypes might need it, but subtype clients will not
 
 **Public** This keyword opens up the access to everyone! This is generally what clients of the package can rely on to use, and once deployed, the public members’ signatures should not change. It’s like a promise and contract to people using this public code that it will always be accessible to them. Usually if developers want to “get rid of” something that’s public, rather than removing it, they would call it “deprecated” instead.
+
+## Chapter 8 Efficient Programming
+
+### Encapsulated
+
+A module is said to be encapsulated if its implementation is completely hidden, and it can be accessed only through a documented interface.
+
+### API
+
+An API(Application Programming Interface) of an ADT is the list of constructors and methods and a short description of each.
+
+API consists of syntactic and semantic specification.
+
+* Compiler verifies that syntax is met. 
+AKA, everything specified in the API is present.
+
+* Tests help verify that semantics are correct. 
+AKA everything actually works the way it should.
+
+### Asymptotics 
+
+1. Big O (O) notation:
+   - Represents the upper bound or worst-case scenario of an algorithm's efficiency.
+   - Describes the maximum growth rate of the algorithm as the input size increases.
+   - Provides an estimate of the algorithm's scalability.
+   - Example: If an algorithm has a time complexity of O(n^2), it means that the algorithm's runtime will not exceed a quadratic growth rate relative to the input size.
+
+2. Omega (Ω) notation:
+   - Represents the lower bound of an algorithm's efficiency.
+   - Describes the minimum growth rate of the algorithm as the input size increases.
+   - Provides information about the best-case scenario for an algorithm's performance.
+   - Example: If an algorithm has a time complexity of Ω(n), it means that the algorithm's runtime will not be faster than a linear growth rate relative to the input size.
+
+3. Theta (Θ) notation:
+   - Represents both the upper and lower bounds of an algorithm's efficiency.
+   - Describes a tight bound on the algorithm's growth rate, indicating that the algorithm's runtime is neither faster nor slower than the given growth rate.
+   - Used when the best-case and worst-case scenarios have the same growth rate.
+   - Example: If an algorithm has a time complexity of Θ(n), it means that the algorithm's runtime will be linear relative to the input size, regardless of the best-case or worst-case scenario.
+
+In summary, Big O notation provides an upper bound, Omega notation provides a lower bound, and Theta notation provides a tight bound on an algorithm's efficiency. These notations help in analyzing and comparing algorithms, estimating their scalability, and understanding their performance characteristics under different scenarios.
