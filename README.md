@@ -6,6 +6,42 @@
 
 ## Chapter 1 Introdution to Java
 
+## Chapter 4 Inheritance, implements
+
+### Static type and dynamic type
+
+#### Static Type
+The static type of a variable or expression is the type that is known at compile time. It is the declared type of the variable or expression as it appears in the source code. The static type determines which operations can be performed on the variable or expression, and it is used for compile-time type checking. The static type is resolved based on the declared type or the type inferred by the compiler.
+
+For example:
+```java
+int num = 5; // Static type: int
+String message = "Hello"; // Static type: String
+```
+
+#### Dynamic Type
+The dynamic type of an object or variable is the actual type of the object at runtime. It is determined by the class of the object to which the variable refers. The dynamic type is resolved at runtime based on the actual object being referred to, and it determines the behavior and available methods when invoking operations on the object.
+
+For example:
+```java
+Animal animal = new Dog(); // Dynamic type: Dog
+animal.makeSound(); // The makeSound() method of Dog class will be invoked
+```
+
+In this example, the static type of the `animal` variable is `Animal`, but the dynamic type is `Dog`. At compile time, the compiler uses the static type to check if the `makeSound()` method exists in the `Animal` class. Then, at runtime, the JVM uses the dynamic type to determine which implementation of the `makeSound()` method to invoke.
+
+### Casting
+Casting allows our compiler to overlook cases where we are calling a method that belongs to a subclass on a variable that is statically typed to be the superclass
+
+### Dynamic Method Selection
+@Compile Time:
+1. Check for valid variable assignments
+2. Check for valid method calls (only considering static type and static types superclasses)
+
+@Run Time:
+1. Check for overridden methods
+2. Ensure casted objects can be assigned their variables
+
 ## Chapter 5 Generics and Autoboxing
 ### Type upper bounds
 ``` java
@@ -23,7 +59,7 @@ public static <K extends Comparable<K>, V> K maxKey(Map61B<K, V> map) {
 
 The K extends Comparable<K> means keys must implement the comparable interface and can be compared to other K's. We need to include the <K> after Comparable because Comparable itself is a generic interface! Therefore, we must specify what kind of comparable we want. In this case, we want to compare K's with K's.
 
-"extends" in this context has a different meaning than in the polymorphism context.
+**extends** in this context has a different meaning than in the polymorphism context.
 
 When we say that the Dog class extends the Animal class, we are saying that Dogs can do anything that animals can do and more! We are giving Dog the abilities of an animal. When we say that K extends Comparable, we are simply stating a fact: 
 We aren't giving K the abilities of a Comparable, we are just saying that K must be Comparable. 
